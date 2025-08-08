@@ -5,7 +5,16 @@ import { Card } from '@/components/ui/Card'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 
-export default function HomePage() {
+async function getDestinations() {
+  const res = await fetch(
+    'https://raw.githubusercontent.com/Lstanislao/cities-permalink/main/flights.json',
+  )
+  const flights = await res.json()
+  return [...new Set(flights.map((f) => f.destination))]
+}
+
+export default async function HomePage() {
+  const destinations = await getDestinations()
   const features = [
     {
       icon: Globe,
@@ -55,9 +64,14 @@ export default function HomePage() {
                   <ArrowRight className='ml-2 h-5 w-5' />
                 </Button>
               </Link>
-              <Button variant='outline' size='lg' className='px-8 py-4 text-lg'>
-                Ver destinos
-              </Button>
+              <Link href='#destinations'>
+                <Button
+                  variant='outline'
+                  size='lg'
+                  className='px-8 py-4 text-lg'>
+                  Ver destinos
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -88,6 +102,37 @@ export default function HomePage() {
                 </h3>
                 <p className='text-gray-600'>{feature.description}</p>
               </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Destinations Section */}
+        <section id='destinations' className='container mx-auto px-4 py-16'>
+          <div className='text-center mb-12'>
+            <h2 className='text-3xl font-bold text-gray-900 mb-4'>
+              Nuestros Destinos
+            </h2>
+            <p className='text-gray-600 max-w-2xl mx-auto'>
+              Explora nuestros destinos disponibles y comienza tu próxima
+              aventura
+            </p>
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto'>
+            {destinations.map((destination, index) => (
+              <Link href='/booking' key={destination}>
+                <Card
+                  className='p-8 text-center hover:shadow-lg transition-all duration-300 animate-slide-up cursor-pointer'
+                  style={{ animationDelay: `${index * 200}ms` }}>
+                  <div className='p-4 bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl w-fit mx-auto mb-6'>
+                    <Plane className='h-8 w-8 text-white' />
+                  </div>
+                  <h3 className='text-xl font-semibold text-gray-900 mb-3'>
+                    {destination}
+                  </h3>
+                  <p className='text-gray-600'>Desde $380 USD</p>
+                </Card>
+              </Link>
             ))}
           </div>
         </section>
