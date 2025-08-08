@@ -5,16 +5,39 @@ import { Card } from '@/components/ui/Card'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 
+interface Flight {
+  destination: string
+  class: 'Economy' | 'Business' | 'First Class'
+  priceUSD: number
+}
+
 async function getDestinations() {
   const res = await fetch(
     'https://raw.githubusercontent.com/Lstanislao/cities-permalink/main/flights.json',
+    { next: { revalidate: 3600 } }, // revalidar cada hora
   )
-  const flights = await res.json()
-  return [...new Set(flights.map((f) => f.destination))]
+  const flights = (await res.json()) as Flight[]
+  return [...new Set(flights.map((f) => f.destination))] as string[]
 }
 
 export default async function HomePage() {
+  // Obtener los destinos y los vuelos completos para mostrar el precio más bajo
   const destinations = await getDestinations()
+  const res = await fetch(
+    'https://raw.githubusercontent.com/Lstanislao/cities-permalink/main/flights.json',
+    { next: { revalidate: 3600 } },
+  )
+  const flights = (await res.json()) as Flight[]
+
+  // Crear un mapa de precios mínimos por destino
+  const minPrices = new Map(
+    destinations.map((dest) => [
+      dest,
+      Math.min(
+        ...flights.filter((f) => f.destination === dest).map((f) => f.priceUSD),
+      ),
+    ]),
+  )
   const features = [
     {
       icon: Globe,
@@ -130,7 +153,9 @@ export default async function HomePage() {
                   <h3 className='text-xl font-semibold text-gray-900 mb-3'>
                     {destination}
                   </h3>
-                  <p className='text-gray-600'>Desde $380 USD</p>
+                  <p className='text-gray-600'>
+                    Desde ${minPrices.get(destination)} USD
+                  </p>
                 </Card>
               </Link>
             ))}
