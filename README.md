@@ -1,36 +1,158 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Globetrotter - Plataforma de Reservas de Vuelos
 
-## Getting Started
+Globetrotter es una aplicación web moderna para la reserva de vuelos, construida con Next.js 15 y diseñada para ofrecer una experiencia de usuario fluida y agradable.
 
-First, run the development server:
+## 🌟 Características
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Diseño Moderno y Responsivo**
+
+  - Interfaz de usuario intuitiva y atractiva
+  - Animaciones suaves y transiciones elegantes
+  - Totalmente adaptable a dispositivos móviles
+
+- **Proceso de Reserva en 4 Pasos**
+  1. Información del Viaje
+     - Selección de destino
+     - Fechas de viaje
+     - Clase de vuelo
+  2. Información de Viajeros
+     - Datos personales
+     - Documentación
+     - Opciones de equipaje y mascotas
+  3. Servicios Adicionales
+     - Seguro de viaje
+     - Asientos preferenciales
+     - Asistencia especial
+  4. Resumen y Confirmación
+     - Desglose de costos
+     - Confirmación de detalles
+     - Proceso de pago
+
+## 🛠 Tecnologías
+
+- **Frontend**
+
+  - Next.js 15.4.6 con App Router
+  - React 19.1.0
+  - TypeScript
+  - Tailwind CSS 3.4.1
+  - Framer Motion para animaciones
+  - Lucide React para iconos
+
+- **Herramientas de Desarrollo**
+  - ESLint
+  - PostCSS
+  - Autoprefixer
+  - TurboPack
+
+## 📦 Estructura del Proyecto
+
+```
+src/
+├── app/
+│   ├── page.tsx            # Página principal
+│   ├── booking/
+│   │   └── page.tsx        # Página de reservas
+│   ├── globals.css         # Estilos globales
+│   └── layout.tsx          # Layout principal
+├── components/
+│   ├── ui/                 # Componentes base
+│   │   ├── Button.tsx
+│   │   ├── Card.tsx
+│   │   ├── Input.tsx
+│   │   ├── Select.tsx
+│   │   ├── Switch.tsx
+│   │   └── ProgressBar.tsx
+│   ├── layout/            # Componentes de layout
+│   │   ├── Header.tsx
+│   │   └── Footer.tsx
+│   └── booking/           # Componentes de reserva
+│       ├── BookingWizard.tsx
+│       ├── TripInfoStep.tsx
+│       ├── TravelersStep.tsx
+│       ├── ServicesStep.tsx
+│       └── SummaryStep.tsx
+├── hooks/
+│   └── useBookingForm.ts  # Hook personalizado para el formulario
+└── types/
+    └── booking.ts         # Tipos TypeScript
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Inicio Rápido
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Instalación**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+2. **Desarrollo**
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   Abre [http://localhost:3000](http://localhost:3000)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Producción**
+   ```bash
+   npm run build
+   npm start
+   ```
 
-## Deploy on Vercel
+## 🌐 API de Vuelos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+La aplicación consume datos de vuelos desde:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+https://raw.githubusercontent.com/Lstanislao/cities-permalink/main/flights.json
+```
+
+Estructura de datos:
+
+```typescript
+interface Flight {
+  destination: string
+  class: 'Economy' | 'Business' | 'First Class'
+  priceUSD: number
+}
+```
+
+## 🎨 Temas y Estilos
+
+- **Paleta de Colores**
+
+  - Primary: Escala de azules (#0ea5e9 a #0369a1)
+  - Gray: Escala de grises (#f9fafb a #111827)
+
+- **Animaciones**
+  - fade-in
+  - slide-up
+  - scale-in
+  - bounce-gentle
+
+## 📱 Responsive Design
+
+- Mobile First
+- Breakpoints:
+  - md: 768px
+  - lg: 1024px
+  - xl: 1280px
+
+## 🔒 Seguridad
+
+- Validación de datos en el cliente
+- Manejo seguro de información sensible
+- Protección contra inyección de datos
+
+## 🤝 Contribución
+
+1. Fork el repositorio
+2. Crea una rama (`git checkout -b feature/mejora`)
+3. Commit tus cambios (`git commit -am 'Añade nueva mejora'`)
+4. Push a la rama (`git push origin feature/mejora`)
+5. Crea un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
