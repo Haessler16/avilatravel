@@ -1,103 +1,120 @@
-import Image from "next/image";
+import Link from 'next/link'
+import { Plane, Globe, Star, ArrowRight } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
+import { Card } from '@/components/ui/Card'
+import { Header } from '@/components/layout/Header'
+import { Footer } from '@/components/layout/Footer'
 
-export default function Home() {
+export default function HomePage() {
+  const features = [
+    {
+      icon: Globe,
+      title: 'Destinos únicos',
+      description:
+        'Explora lugares increíbles alrededor del mundo con nuestras rutas cuidadosamente seleccionadas.',
+    },
+    {
+      icon: Star,
+      title: 'Experiencia premium',
+      description:
+        'Servicios de primera calidad y atención personalizada para hacer tu viaje inolvidable.',
+    },
+    {
+      icon: Plane,
+      title: 'Reserva fácil',
+      description:
+        'Proceso de reserva simplificado en pocos pasos. Rápido, seguro y confiable.',
+    },
+  ]
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className='min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-100'>
+      <Header />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+      <main>
+        {/* Hero Section */}
+        <section className='container mx-auto px-4 py-16 text-center'>
+          <div className='max-w-4xl mx-auto'>
+            <h1 className='text-5xl md:text-7xl font-bold text-gradient mb-6 animate-fade-in'>
+              Tu próxima aventura
+              <br />
+              comienza aquí
+            </h1>
+            <p
+              className='text-xl text-gray-600 mb-8 animate-slide-up'
+              style={{ animationDelay: '200ms' }}>
+              Descubre el mundo con Globetrotter. Reserva vuelos, personaliza tu
+              experiencia y crea recuerdos que durarán para siempre.
+            </p>
+            <div
+              className='flex flex-col sm:flex-row gap-4 justify-center animate-slide-up'
+              style={{ animationDelay: '400ms' }}>
+              <Link href='/booking'>
+                <Button size='lg' className='px-8 py-4 text-lg'>
+                  Reservar ahora
+                  <ArrowRight className='ml-2 h-5 w-5' />
+                </Button>
+              </Link>
+              <Button variant='outline' size='lg' className='px-8 py-4 text-lg'>
+                Ver destinos
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className='container mx-auto px-4 py-16'>
+          <div className='text-center mb-12'>
+            <h2 className='text-3xl font-bold text-gray-900 mb-4'>
+              ¿Por qué elegir Globetrotter?
+            </h2>
+            <p className='text-gray-600 max-w-2xl mx-auto'>
+              Nos dedicamos a hacer que cada viaje sea una experiencia única y
+              memorable.
+            </p>
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto'>
+            {features.map((feature, index) => (
+              <Card
+                key={feature.title}
+                className='p-8 text-center hover:shadow-lg transition-all duration-300 animate-slide-up'
+                style={{ animationDelay: `${index * 200}ms` }}>
+                <div className='p-4 bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl w-fit mx-auto mb-6'>
+                  <feature.icon className='h-8 w-8 text-white' />
+                </div>
+                <h3 className='text-xl font-semibold text-gray-900 mb-3'>
+                  {feature.title}
+                </h3>
+                <p className='text-gray-600'>{feature.description}</p>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className='container mx-auto px-4 py-16'>
+          <Card className='p-12 text-center bg-gradient-to-r from-primary-500 to-primary-600 text-white'>
+            <h2 className='text-3xl font-bold mb-4'>
+              ¿Listo para tu próxima aventura?
+            </h2>
+            <p className='text-xl mb-8 opacity-90'>
+              Comienza a planificar tu viaje perfecto en solo unos minutos.
+            </p>
+            <Link href='/booking'>
+              <Button
+                variant='secondary'
+                size='lg'
+                className='px-8 py-4 text-lg'>
+                Comenzar reserva
+                <ArrowRight className='ml-2 h-5 w-5' />
+              </Button>
+            </Link>
+          </Card>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+      <Footer />
     </div>
-  );
+  )
 }
