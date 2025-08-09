@@ -3,7 +3,7 @@ import { MapPin, Calendar, Plane } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
-import { BookingStepProps, FLIGHT_CLASSES } from '@/types/booking'
+import { BookingStepProps, FLIGHT_CLASSES, FlightClass } from '@/types/booking'
 
 interface TripInfoStepProps extends BookingStepProps {
   destinations: string[]
@@ -134,7 +134,11 @@ export const TripInfoStep = ({
               return (
                 <button
                   key={flightClass.value}
-                  onClick={() => updateData({ flightClass: flightClass.value })}
+                  onClick={() =>
+                    updateData({
+                      flightClass: flightClass.value as FlightClass,
+                    })
+                  }
                   className={`p-4 rounded-xl border-2 transition-all duration-200 text-left ${
                     isSelected
                       ? 'border-primary-500 bg-primary-50 ring-2 ring-primary-100 transform scale-105'

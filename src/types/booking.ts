@@ -3,7 +3,7 @@ export interface Flight {
   destination: string
   departure_date: string
   return_date: string
-  flight_class: 'economy' | 'business' | 'first'
+  flight_class: FlightClass
   price: number
 }
 
@@ -11,7 +11,7 @@ export interface Traveler {
   id: string
   fullName: string
   birthDate: string
-  documentType: 'passport' | 'id' | 'driver_license'
+  documentType: DocumentType
   documentNumber: string
 }
 
@@ -20,7 +20,7 @@ export interface BookingForm {
   destination: string
   departureDate: string
   returnDate: string
-  flightClass: 'economy' | 'business' | 'first'
+  flightClass: FlightClass
 
   // Step 2: Travelers Information
   numberOfTravelers: number
@@ -71,14 +71,22 @@ export interface BookingSummary {
   }
 }
 
-export const DOCUMENT_TYPES = [
+export type SelectOption<T = string> = {
+  value: T
+  label: string
+}
+
+export type DocumentType = 'passport' | 'id' | 'driver_license'
+export type FlightClass = 'economy' | 'business' | 'first'
+
+export const DOCUMENT_TYPES: SelectOption<DocumentType>[] = [
   { value: 'passport', label: 'Pasaporte' },
   { value: 'id', label: 'Cédula de Identidad' },
   { value: 'driver_license', label: 'Licencia de Conducir' },
-] as const
+]
 
-export const FLIGHT_CLASSES = [
+export const FLIGHT_CLASSES: SelectOption<FlightClass>[] = [
   { value: 'economy', label: 'Económica' },
   { value: 'business', label: 'Ejecutiva' },
   { value: 'first', label: 'Primera Clase' },
-] as const
+]

@@ -50,6 +50,56 @@ export const BookingWizard = () => {
   const currentStepData = steps.find((step) => step.id === currentStep)
   const CurrentStepComponent = currentStepData?.component
 
+  // Renderizar el componente según el paso actual
+  const renderStepComponent = () => {
+    if (!CurrentStepComponent) return null
+
+    switch (currentStep) {
+      case 1:
+        return (
+          <TripInfoStep
+            data={formData}
+            updateData={updateFormData}
+            onNext={nextStep}
+            onPrev={prevStep}
+            destinations={destinations || []}
+            getFlightsForDestination={getFlightsForDestination}
+          />
+        )
+      case 4:
+        return (
+          <SummaryStep
+            data={formData}
+            updateData={updateFormData}
+            onNext={nextStep}
+            onPrev={prevStep}
+            pricing={pricing}
+            goToStep={goToStep}
+          />
+        )
+      case 2:
+        return (
+          <TravelersStep
+            data={formData}
+            updateData={updateFormData}
+            onNext={nextStep}
+            onPrev={prevStep}
+          />
+        )
+      case 3:
+        return (
+          <ServicesStep
+            data={formData}
+            updateData={updateFormData}
+            onNext={nextStep}
+            onPrev={prevStep}
+          />
+        )
+      default:
+        return null
+    }
+  }
+
   if (isLoading) {
     return (
       <div className='min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center'>
@@ -121,19 +171,7 @@ export const BookingWizard = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}>
-              {CurrentStepComponent && (
-                <CurrentStepComponent
-                  data={formData}
-                  updateData={updateFormData}
-                  onNext={nextStep}
-                  onPrev={prevStep}
-                  {...(currentStep === 1 && {
-                    destinations,
-                    getFlightsForDestination,
-                  })}
-                  {...(currentStep === 4 && { pricing, goToStep })}
-                />
-              )}
+              {renderStepComponent()}
             </motion.div>
           </AnimatePresence>
         </div>

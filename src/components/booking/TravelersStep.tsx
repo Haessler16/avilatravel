@@ -116,7 +116,7 @@ export const TravelersStep = ({
                 onChange={(e) =>
                   updateTraveler(index, { documentType: e.target.value as any })
                 }
-                options={DOCUMENT_TYPES}
+                options={[...DOCUMENT_TYPES]}
                 placeholder='Selecciona el tipo'
               />
               <Input
