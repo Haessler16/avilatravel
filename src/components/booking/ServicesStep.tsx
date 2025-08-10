@@ -116,9 +116,10 @@ export const ServicesStep = ({
                   ? `${colors.bg} ${colors.border} ring-2 ring-opacity-20 transform scale-[1.02]`
                   : 'hover:shadow-md hover:border-gray-200'
               }`}
-              style={{ animationDelay: `${index * 100}ms` }}
-              onClick={() => updateData({ [service.key]: !isSelected })}>
-              <div className='flex items-start justify-between mb-4'>
+              style={{ animationDelay: `${index * 100}ms` }}>
+              <div
+                className='flex items-start justify-between mb-4'
+                onClick={() => updateData({ [service.key]: !isSelected })}>
                 <div className='flex items-center space-x-4'>
                   <div
                     className={`p-3 rounded-xl ${
@@ -208,6 +209,8 @@ export const ServicesStep = ({
                               assistanceNote: e.target.value.slice(0, 200),
                             })
                           }
+                          onClick={(e) => e.stopPropagation()}
+                          onFocus={(e) => e.stopPropagation()}
                           placeholder='Describe cualquier asistencia especial que necesites...'
                           className={`w-full px-4 py-3 border ${colors.border} rounded-lg resize-none transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-20`}
                           rows={3}

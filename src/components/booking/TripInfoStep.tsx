@@ -3,7 +3,12 @@ import { MapPin, Calendar, Plane } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
-import { BookingStepProps, FLIGHT_CLASSES, FlightClass } from '@/types/booking'
+import {
+  BookingStepProps,
+  Flight,
+  FLIGHT_CLASSES,
+  FlightClass,
+} from '@/types/booking'
 
 interface TripInfoStepProps extends BookingStepProps {
   destinations: string[]
@@ -19,7 +24,7 @@ export const TripInfoStep = ({
 }: TripInfoStepProps) => {
   const [filteredDestinations, setFilteredDestinations] = useState<string[]>([])
   const [showSuggestions, setShowSuggestions] = useState(false)
-  const [selectedFlights, setSelectedFlights] = useState<any[]>([])
+  const [selectedFlights, setSelectedFlights] = useState<Flight[]>([])
 
   // Filter destinations based on input
   useEffect(() => {
@@ -123,13 +128,13 @@ export const TripInfoStep = ({
           <label className='block text-sm font-medium text-gray-700 mb-4'>
             Clase de vuelo
           </label>
+
           <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
             {FLIGHT_CLASSES.map((flightClass) => {
               const isSelected = data.flightClass === flightClass.value
               const price =
-                selectedFlights.find(
-                  (f) => f.flight_class === flightClass.value,
-                )?.price || 0
+                selectedFlights.find((f) => f.class === flightClass.value)
+                  ?.priceUSD || 0
 
               return (
                 <button
@@ -187,8 +192,9 @@ export const TripInfoStep = ({
           <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
             {FLIGHT_CLASSES.map((flightClass) => {
               const flight = selectedFlights.find(
-                (f) => f.flight_class === flightClass.value,
+                (f) => f.class === flightClass.value,
               )
+
               return flight ? (
                 <div
                   key={flightClass.value}
@@ -201,7 +207,7 @@ export const TripInfoStep = ({
                     {flightClass.label}
                   </p>
                   <p className='text-lg font-bold text-blue-700'>
-                    ${flight.price.toLocaleString()}
+                    ${flight.priceUSD.toLocaleString()}
                   </p>
                 </div>
               ) : null

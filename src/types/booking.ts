@@ -1,10 +1,7 @@
 export interface Flight {
-  id: string
   destination: string
-  departure_date: string
-  return_date: string
-  flight_class: FlightClass
-  price: number
+  class: string
+  priceUSD: number
 }
 
 export interface Traveler {
@@ -77,7 +74,7 @@ export type SelectOption<T = string> = {
 }
 
 export type DocumentType = 'passport' | 'id' | 'driver_license'
-export type FlightClass = 'economy' | 'business' | 'first'
+export type FlightClass = 'Economy' | 'Business' | 'First Class'
 
 export const DOCUMENT_TYPES: SelectOption<DocumentType>[] = [
   { value: 'passport', label: 'Pasaporte' },
@@ -86,7 +83,7 @@ export const DOCUMENT_TYPES: SelectOption<DocumentType>[] = [
 ]
 
 export const FLIGHT_CLASSES: SelectOption<FlightClass>[] = [
-  { value: 'economy', label: 'Económica' },
-  { value: 'business', label: 'Ejecutiva' },
-  { value: 'first', label: 'Primera Clase' },
+  { value: 'Economy', label: 'Económica' },
+  { value: 'Business', label: 'Ejecutiva' },
+  { value: 'First Class', label: 'Primera Clase' },
 ]

@@ -66,17 +66,6 @@ export const BookingWizard = () => {
             getFlightsForDestination={getFlightsForDestination}
           />
         )
-      case 4:
-        return (
-          <SummaryStep
-            data={formData}
-            updateData={updateFormData}
-            onNext={nextStep}
-            onPrev={prevStep}
-            pricing={pricing}
-            goToStep={goToStep}
-          />
-        )
       case 2:
         return (
           <TravelersStep
@@ -93,6 +82,17 @@ export const BookingWizard = () => {
             updateData={updateFormData}
             onNext={nextStep}
             onPrev={prevStep}
+          />
+        )
+      case 4:
+        return (
+          <SummaryStep
+            data={formData}
+            updateData={updateFormData}
+            onNext={nextStep}
+            onPrev={prevStep}
+            pricing={pricing}
+            goToStep={goToStep}
           />
         )
       default:

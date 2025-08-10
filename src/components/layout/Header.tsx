@@ -4,9 +4,15 @@ import { Plane, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+
+  const isActive = (path: string) => {
+    return pathname === path ? 'text-primary-600 font-medium' : 'text-gray-600'
+  }
 
   return (
     <header className='bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50'>
@@ -26,13 +32,17 @@ export const Header = () => {
           <nav className='hidden md:flex items-center space-x-8'>
             <Link
               href='/'
-              className='text-gray-600 hover:text-primary-600 transition-colors'>
+              className={`${isActive(
+                '/',
+              )} hover:text-primary-600 transition-colors`}>
               Inicio
             </Link>
             <Link
               href='/booking'
-              className='text-gray-600 hover:text-primary-600 transition-colors'>
-              Destinos
+              className={`${isActive(
+                '/booking',
+              )} hover:text-primary-600 transition-colors`}>
+              Reserva
             </Link>
             <Link href='/booking'>
               <Button
@@ -62,13 +72,17 @@ export const Header = () => {
             <nav className='flex flex-col space-y-3'>
               <Link
                 href='/'
-                className='text-gray-600 hover:text-primary-600 transition-colors py-2'>
+                className={`${isActive(
+                  '/',
+                )} hover:text-primary-600 transition-colors py-2`}>
                 Inicio
               </Link>
               <Link
                 href='/booking'
-                className='text-gray-600 hover:text-primary-600 transition-colors py-2'>
-                Destinos
+                className={`${isActive(
+                  '/booking',
+                )} hover:text-primary-600 transition-colors py-2`}>
+                Reserva
               </Link>
               <Link href='/booking'>
                 <Button

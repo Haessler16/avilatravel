@@ -5,7 +5,7 @@ const initialFormData: BookingForm = {
   destination: '',
   departureDate: '',
   returnDate: '',
-  flightClass: 'economy',
+  flightClass: 'Economy',
   numberOfTravelers: 1,
   travelers: [],
   hasPets: false,
@@ -108,11 +108,11 @@ export const useBookingForm = () => {
     const selectedFlight = flights.find(
       (f) =>
         f.destination.toLowerCase() === formData.destination.toLowerCase() &&
-        f.flight_class === formData.flightClass,
+        f.class === formData.flightClass,
     )
 
     const flightPrice = selectedFlight
-      ? selectedFlight.price * formData.numberOfTravelers
+      ? selectedFlight.priceUSD * formData.numberOfTravelers
       : 0
     const petsPrice = formData.hasPets ? formData.numberOfPets * 100 : 0
     const extraLuggagePrice = formData.hasExtraLuggage
