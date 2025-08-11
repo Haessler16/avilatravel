@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { MapPin, Calendar, Plane } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
+import { StepHeader } from '@/components/ui/StepHeader'
 import { Card } from '@/components/ui/Card'
 import {
   BookingStepProps,
@@ -25,6 +26,7 @@ export const TripInfoStep = ({
   const [filteredDestinations, setFilteredDestinations] = useState<string[]>([])
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [selectedFlights, setSelectedFlights] = useState<Flight[]>([])
+  const [showError, setShowError] = useState(false)
 
   // Filter destinations based on input
   useEffect(() => {
@@ -43,6 +45,11 @@ export const TripInfoStep = ({
   const handleDestinationChange = (value: string) => {
     updateData({ destination: value })
     setShowSuggestions(value.length > 0)
+    // Verificar si el destino está en la lista
+    const isValidDestination = destinations.some(
+      (dest) => dest.toLowerCase() === value.toLowerCase(),
+    )
+    setShowError(!isValidDestination && value.length > 0)
   }
 
   const selectDestination = (destination: string) => {
@@ -50,8 +57,13 @@ export const TripInfoStep = ({
     setShowSuggestions(false)
   }
 
+  const isValidDestination = destinations.some(
+    (dest) => dest.toLowerCase() === data.destination?.toLowerCase(),
+  )
+
   const isValid =
     data.destination &&
+    isValidDestination &&
     data.departureDate &&
     data.returnDate &&
     data.flightClass
@@ -59,16 +71,12 @@ export const TripInfoStep = ({
   return (
     <div className='space-y-8 animate-fade-in'>
       {/* Header */}
-      <div className='text-center'>
-        <h2 className='text-3xl font-bold text-gradient mb-2'>
-          ¿A dónde quieres viajar?
-        </h2>
-        <p className='text-gray-600'>
-          Cuéntanos los detalles de tu próxima aventura
-        </p>
-      </div>
+      <StepHeader
+        title='¿A dónde quieres viajar?'
+        description='Cuéntanos los detalles de tu próxima aventura'
+      />
 
-      <div className='grid md:grid-cols-2 gap-6'>
+      <section className='grid md:grid-cols-2 gap-6'>
         {/* Destination Input with Autocomplete */}
         <Card className='p-6 md:col-span-2'>
           <div className='relative'>
@@ -80,6 +88,11 @@ export const TripInfoStep = ({
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
               icon={<MapPin className='h-5 w-5' />}
+              error={
+                showError
+                  ? 'Este destino no está disponible. Por favor, selecciona uno valido.'
+                  : undefined
+              }
             />
 
             {/* Destination Suggestions */}
@@ -180,7 +193,7 @@ export const TripInfoStep = ({
             })}
           </div>
         </Card>
-      </div>
+      </section>
 
       {/* Flight Information Preview */}
       {data.destination && selectedFlights.length > 0 && (

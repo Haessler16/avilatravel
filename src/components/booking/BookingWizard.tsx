@@ -112,10 +112,10 @@ export const BookingWizard = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-100 text-gray-900'>
+    <main className='min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-100 text-gray-900'>
       <div className='container mx-auto px-4 py-8 max-w-6xl'>
         {/* Header */}
-        <div className='text-center mb-8'>
+        <section className='text-center mb-8'>
           <h1 className='text-4xl md:text-5xl font-bold text-gradient mb-4'>
             Globetrotter
           </h1>
@@ -127,10 +127,10 @@ export const BookingWizard = () => {
           <div className='max-w-md mx-auto'>
             <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
           </div>
-        </div>
+        </section>
 
         {/* Step Navigation */}
-        <div className='max-w-4xl mx-auto mb-8'>
+        <section className='max-w-4xl mx-auto mb-8'>
           <div className='flex justify-center space-x-2 md:space-x-4'>
             {steps.map((step) => (
               <button
@@ -160,10 +160,10 @@ export const BookingWizard = () => {
               </button>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Step Content */}
-        <div className='max-w-4xl mx-auto'>
+        <section className='max-w-4xl mx-auto'>
           <AnimatePresence mode='wait'>
             <motion.div
               key={currentStep}
@@ -174,8 +174,8 @@ export const BookingWizard = () => {
               {renderStepComponent()}
             </motion.div>
           </AnimatePresence>
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   )
 }

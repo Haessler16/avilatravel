@@ -1,5 +1,6 @@
 import { Shield, Armchair, Heart, MessageSquare } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { StepHeader } from '@/components/ui/StepHeader'
 import { Card } from '@/components/ui/Card'
 import { Switch } from '@/components/ui/Switch'
 import { BookingStepProps } from '@/types/booking'
@@ -68,14 +69,10 @@ export const ServicesStep = ({
   return (
     <div className='space-y-8 animate-fade-in'>
       {/* Header */}
-      <div className='text-center'>
-        <h2 className='text-3xl font-bold text-gradient mb-2'>
-          Servicios adicionales
-        </h2>
-        <p className='text-gray-600'>
-          Mejora tu experiencia de viaje con nuestros servicios premium
-        </p>
-      </div>
+      <StepHeader
+        title='Servicios adicionales'
+        description='Mejora tu experiencia de viaje con nuestros servicios premium'
+      />
 
       {/* Services Grid */}
       <div className='space-y-6'>

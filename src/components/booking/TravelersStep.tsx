@@ -2,6 +2,7 @@ import { Users, Plus, Minus, PawPrint, Luggage } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
 import { Button } from '@/components/ui/Button'
+import { StepHeader } from '@/components/ui/StepHeader'
 import { Card } from '@/components/ui/Card'
 import { Switch } from '@/components/ui/Switch'
 import { BookingStepProps, DOCUMENT_TYPES, Traveler } from '@/types/booking'
@@ -39,19 +40,15 @@ export const TravelersStep = ({
   return (
     <div className='space-y-8 animate-fade-in'>
       {/* Header */}
-      <div className='text-center'>
-        <h2 className='text-3xl font-bold text-gradient mb-2'>
-          Información de viajeros
-        </h2>
-        <p className='text-gray-600'>
-          Cuéntanos quiénes van a disfrutar de este viaje
-        </p>
-      </div>
+      <StepHeader
+        title='Información de viajeros'
+        description='Cuéntanos quiénes van a disfrutar de este viaje'
+      />
 
       {/* Number of Travelers */}
       <Card className='p-6'>
         <div className='flex items-center justify-between'>
-          <div className='flex items-center space-x-3'>
+          <section className='flex items-center space-x-3'>
             <Users className='h-6 w-6 text-primary-500' />
             <div>
               <h3 className='font-semibold text-gray-900'>
@@ -59,29 +56,32 @@ export const TravelersStep = ({
               </h3>
               <p className='text-sm text-gray-500'>Mínimo 1, máximo 10</p>
             </div>
-          </div>
-          <div className='flex items-center space-x-3'>
-            <button
-              onClick={decrementTravelers}
-              disabled={data.numberOfTravelers <= 1}
-              className='w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-primary-500 hover:text-primary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200'>
-              <Minus className='h-4 w-4' />
-            </button>
+          </section>
+
+          <section className='flex items-center space-x-3'>
+            {data.numberOfTravelers > 1 && (
+              <button
+                onClick={decrementTravelers}
+                className='w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-primary-500 hover:text-primary-600 transition-all duration-200'>
+                <Minus className='h-4 w-4' />
+              </button>
+            )}
             <span className='text-2xl font-bold text-gray-900 w-12 text-center'>
               {data.numberOfTravelers}
             </span>
-            <button
-              onClick={incrementTravelers}
-              disabled={data.numberOfTravelers >= 10}
-              className='w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-primary-500 hover:text-primary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200'>
-              <Plus className='h-4 w-4' />
-            </button>
-          </div>
+            {data.numberOfTravelers < 10 && (
+              <button
+                onClick={incrementTravelers}
+                className='w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-primary-500 hover:text-primary-600 transition-all duration-200'>
+                <Plus className='h-4 w-4' />
+              </button>
+            )}
+          </section>
         </div>
       </Card>
 
       {/* Travelers Information */}
-      <div className='space-y-6'>
+      <section className='space-y-6'>
         {data.travelers.map((traveler, index) => (
           <Card
             key={traveler.id}
@@ -93,7 +93,7 @@ export const TravelersStep = ({
               </div>
               Viajero {index + 1}
             </h3>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <section className='grid grid-cols-1 md:grid-cols-2 gap-4'>
               <Input
                 label='Nombre completo'
                 placeholder='Ingresa el nombre completo'
@@ -127,13 +127,13 @@ export const TravelersStep = ({
                   updateTraveler(index, { documentNumber: e.target.value })
                 }
               />
-            </div>
+            </section>
           </Card>
         ))}
-      </div>
+      </section>
 
       {/* Additional Options */}
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+      <section className='grid grid-cols-1 md:grid-cols-2 gap-6'>
         {/* Pets */}
         <Card className='p-6'>
           <Switch
@@ -241,17 +241,17 @@ export const TravelersStep = ({
             </div>
           )}
         </Card>
-      </div>
+      </section>
 
       {/* Navigation */}
-      <div className='flex justify-between'>
+      <section className='flex justify-between'>
         <Button onClick={onPrev} variant='outline' size='lg' className='px-8'>
           Anterior
         </Button>
         <Button onClick={onNext} disabled={!isValid} size='lg' className='px-8'>
           Continuar
         </Button>
-      </div>
+      </section>
     </div>
   )
 }

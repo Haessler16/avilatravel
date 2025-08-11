@@ -7,7 +7,15 @@ const initialFormData: BookingForm = {
   returnDate: '',
   flightClass: 'Economy',
   numberOfTravelers: 1,
-  travelers: [],
+  travelers: [
+    {
+      id: 'traveler-1',
+      fullName: '',
+      birthDate: '',
+      documentType: 'passport',
+      documentNumber: '',
+    },
+  ],
   hasPets: false,
   numberOfPets: 0,
   hasExtraLuggage: false,
